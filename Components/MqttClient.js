@@ -7,24 +7,24 @@ const MqttClient = () => {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        // Define connection options for MQTT client
+        // إعداد الخيارات للاتصال
         const options = {
             host: process.env.NEXT_PUBLIC_HOST,
-            port: parseInt(process.env.NEXT_PUBLIC_PORT, 10),
+            port: process.env.NEXT_PUBLIC_PORT,
             protocol: process.env.NEXT_PUBLIC_PROTOCOL,
             username: process.env.NEXT_PUBLIC_USERNAME,
             password: process.env.NEXT_PUBLIC_PASSWORD,
         };
 
-        // Create and connect the MQTT client
+        // إنشاء العميل MQTT
         const mqttClient = mqtt.connect(options);
         setClient(mqttClient);
 
         mqttClient.on('connect', () => {
             console.log('Connected to MQTT broker');
-            mqttClient.subscribe('test1/topic', (err) => {
+            mqttClient.subscribe('test/topic', (err) => {
                 if (!err) {
-                    console.log('Subscribed to topic: test1/topic');
+                    console.log('Subscribed to topic: test/topic');
                 }
             });
         });
@@ -40,25 +40,23 @@ const MqttClient = () => {
             console.error('Connection error:', error);
         });
 
-        // Clean up on component unmount
+        // تنظيف الاتصال عند إلغاء المكون
         return () => mqttClient.end();
     }, []);
 
-    // Send message function
+    // دالة لإرسال الرسالة
     const sendMessage = () => {
         const input = document.getElementById('messageInput');
         const message = input.value.trim();
         if (message && client) {
-            client.publish('test1/topic', message);
+            client.publish('test/topic', message);
             input.value = '';
         }
     };
 
-    // Display notification with sound
     const displayNotification = (msg) => {
         const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/333/333-preview.mp3');
-        audio.play().catch((error) => console.error('Error playing audio:', error));
-
+        audio.play().catch((error) => console.error('لم يتم تشغيل الصوت:', error));
         if (Notification.permission === 'granted') {
             const notification = new Notification('Dashboard MQTT Message', {
                 body: msg,
@@ -68,11 +66,15 @@ const MqttClient = () => {
         }
     };
 
-    // Request notification permission on page load
+    // طلب إذن الإشعارات عند تحميل الصفحة
     useEffect(() => {
         if (Notification.permission !== 'granted') {
             Notification.requestPermission().then((permission) => {
-                console.log(`Notifications permission: ${permission}`);
+                if (permission === 'granted') {
+                    console.log('Notifications permission granted.');
+                } else {
+                    console.log('Notifications permission denied.');
+                }
             });
         }
     }, []);
@@ -94,9 +96,7 @@ const MqttClient = () => {
         }
     }}
     placeholder="Enter message"
-/>
-
-                <button id="sendButton" onClick={sendMessage}>Send</button>
+/>                <button id="sendButton" onClick={sendMessage}>Send</button>
             </div>
         </div>
     );
