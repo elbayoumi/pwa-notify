@@ -12,11 +12,9 @@
     {"origin": "docs.pwabuilder.co.uk"},
     {"origin": "*.pwabuilder.co.uk"}
   ],
-    "launch_handler": {
-        "web": {
-            "default": "https://pwa-notify-three.vercel.app"
-        }
-    },
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+},
     "related_applications": [
         {
             "platform": "windows",
