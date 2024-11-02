@@ -56,9 +56,9 @@
     "prefer_related_applications": true,
     "shortcuts": [
       {
-        "name": "trr",
-        "url": "trr",
-        "description": "trtr"
+        "name": "View Icons",
+        "url": "/icons",
+        "description": "Open the icons page"
       }
     ],
     "categories": [
