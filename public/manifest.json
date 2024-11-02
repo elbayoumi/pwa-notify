@@ -7,6 +7,11 @@
     "orientation": "portrait",
     "background_color": "#fcfcfc",
     "theme_color": "#000000",
+    "launch_handler": {
+    "web": {
+        "default": "https://pwa-notify-three.vercel.app"  
+    }
+},
     "icons": [
         {
           "src": "/icons/icon-192x192.png",
