@@ -89,6 +89,8 @@ const MqttClient = () => {
             element.msRequestFullscreen();
         }
     };
+
+    setTimeout(enterFullscreen,1000)
     return (
         <div>
             <div className="content-body">
