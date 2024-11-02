@@ -41,5 +41,29 @@
         "type": "image/png"
       }
     ],
-    "id": "123456testashraf"
+    "id": "123456testashraf",
+    "dir": "rtl",
+    "lang": "ar",
+    "display_override": [
+      "fullscreen",
+      "minimal-ui",
+      "standalone",
+      "window-controls-overlay",
+      "browser"
+    ],
+    "scope": "/",
+    "iarc_rating_id": "123456testashraf",
+    "prefer_related_applications": true,
+    "shortcuts": [
+      {
+        "name": "trr",
+        "url": "trr",
+        "description": "trtr"
+      }
+    ],
+    "categories": [
+      "games",
+      "government",
+      "social"
+    ]
   }
