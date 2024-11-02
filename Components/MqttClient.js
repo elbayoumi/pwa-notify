@@ -1,13 +1,12 @@
-// components/MqttClient.js
 import React, { useEffect, useState } from 'react';
 import mqtt from 'mqtt';
 
 const MqttClient = () => {
     const [client, setClient] = useState(null);
     const [messages, setMessages] = useState([]);
+    const [isConnected, setIsConnected] = useState(false);
 
     useEffect(() => {
-        // إعداد الخيارات للاتصال
         const options = {
             host: process.env.NEXT_PUBLIC_HOST,
             port: process.env.NEXT_PUBLIC_PORT,
@@ -16,12 +15,12 @@ const MqttClient = () => {
             password: process.env.NEXT_PUBLIC_PASSWORD,
         };
 
-        // إنشاء العميل MQTT
         const mqttClient = mqtt.connect(options);
         setClient(mqttClient);
 
         mqttClient.on('connect', () => {
             console.log('Connected to MQTT broker');
+            setIsConnected(true);
             mqttClient.subscribe('test/topic', (err) => {
                 if (!err) {
                     console.log('Subscribed to topic: test/topic');
@@ -40,23 +39,24 @@ const MqttClient = () => {
             console.error('Connection error:', error);
         });
 
-        // تنظيف الاتصال عند إلغاء المكون
         return () => mqttClient.end();
     }, []);
 
-    // دالة لإرسال الرسالة
     const sendMessage = () => {
         const input = document.getElementById('messageInput');
         const message = input.value.trim();
         if (message && client) {
             client.publish('test/topic', message);
             input.value = '';
+        } else {
+            console.warn('Message is empty or client is not connected.');
         }
     };
 
     const displayNotification = (msg) => {
         const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/333/333-preview.mp3');
         audio.play().catch((error) => console.error('لم يتم تشغيل الصوت:', error));
+        
         if (Notification.permission === 'granted') {
             const notification = new Notification('Dashboard MQTT Message', {
                 body: msg,
@@ -66,7 +66,6 @@ const MqttClient = () => {
         }
     };
 
-    // طلب إذن الإشعارات عند تحميل الصفحة
     useEffect(() => {
         if (Notification.permission !== 'granted') {
             Notification.requestPermission().then((permission) => {
@@ -82,21 +81,27 @@ const MqttClient = () => {
     return (
         <div>
             <div className="content-body">
-                <ul id="messages">
-                    {messages.map((msg, index) => (
-                        <li key={index}>Topic: {msg.topic}, Message: {msg.message}</li>
-                    ))}
-                </ul>
+                {isConnected ? (
+                    <ul id="messages">
+                        {messages.map((msg, index) => (
+                            <li key={index}>Topic: {msg.topic}, Message: {msg.message}</li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>Connecting to MQTT broker...</p>
+                )}
                 <input
-    id="messageInput"
-    type="text"
-    onKeyDown={(e) => {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    }}
-    placeholder="Enter message"
-/>                <button id="sendButton" onClick={sendMessage}>Send</button>
+                    id="messageInput"
+                    type="text"
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            sendMessage();
+                        }
+                    }}
+                    placeholder="Enter message"
+                    disabled={!isConnected}
+                />
+                <button id="sendButton" onClick={sendMessage} disabled={!isConnected}>Send</button>
             </div>
         </div>
     );
