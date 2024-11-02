@@ -1,7 +1,7 @@
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
 
 const CACHE = "pwabuilder-page";
-const offlineFallbackPage = "/offline.html"; // تأكد من وجود هذا الملف
+const offlineFallbackPage = "/offline.html"; // Ensure this file exists
 
 self.addEventListener("message", (event) => {
     if (event.data && event.data.type === "SKIP_WAITING") {
@@ -45,3 +45,60 @@ self.addEventListener('fetch', (event) => {
         })());
     }
 });
+
+self.addEventListener('sync', (event) => {
+    if (event.tag === 'sync-messages') {
+        event.waitUntil(syncMessages());
+    }
+});
+
+async function syncMessages() {
+    const messagesToSync = await getMessagesFromIndexedDB(); // Assume you store messages in IndexedDB
+    for (const message of messagesToSync) {
+        await fetch('/send-message', {
+            method: 'POST',
+            body: JSON.stringify({ message }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }
+}
+
+// Storing messages in IndexedDB
+function storeMessage(message) {
+    const request = indexedDB.open('my-database', 1);
+
+    request.onupgradeneeded = (event) => {
+        const db = event.target.result;
+        // Create the object store if it doesn't exist
+        db.createObjectStore('messages', { keyPath: 'id', autoIncrement: true });
+    };
+
+    request.onsuccess = (event) => {
+        const db = event.target.result;
+        const transaction = db.transaction(['messages'], 'readwrite');
+        const store = transaction.objectStore('messages');
+        store.add({ message });
+    };
+}
+
+// Retrieve messages from IndexedDB
+async function getMessagesFromIndexedDB() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open('my-database', 1);
+        request.onsuccess = (event) => {
+            const db = event.target.result;
+            const transaction = db.transaction(['messages'], 'readonly');
+            const store = transaction.objectStore('messages');
+            const getAllRequest = store.getAll();
+
+            getAllRequest.onsuccess = () => {
+                resolve(getAllRequest.result);
+            };
+            getAllRequest.onerror = () => {
+                reject(getAllRequest.error);
+            };
+        };
+    });
+}

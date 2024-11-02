@@ -8,13 +8,22 @@
     "background_color": "#fcfcfc",
     "theme_color": "#000000",
     "scope_extensions": [
-    {"origin": "*.pwabuilder.com"},
-    {"origin": "docs.pwabuilder.co.uk"},
-    {"origin": "*.pwabuilder.co.uk"}
-  ],
-  "launch_handler": {
-    "client_mode": ["navigate-existing", "auto"]
-},
+        {
+            "origin": "*.pwabuilder.com"
+        },
+        {
+            "origin": "docs.pwabuilder.co.uk"
+        },
+        {
+            "origin": "*.pwabuilder.co.uk"
+        }
+    ],
+    "launch_handler": {
+        "client_mode": [
+            "navigate-existing",
+            "auto"
+        ]
+    },
     "related_applications": [
         {
             "platform": "windows",
