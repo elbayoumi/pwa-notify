@@ -91,7 +91,7 @@
     ],
     "scope": "https://pwa-notify-three.vercel.app/",
     "iarc_rating_id": "e58c274a-81d2-5c3c-32cc-55b9de2a18",
-    "prefer_related_applications": false,
+    "prefer_related_applications": true,
     "shortcuts": [
         {
             "name": "View Icons",
