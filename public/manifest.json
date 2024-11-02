@@ -3,7 +3,7 @@
     "short_name": "MyPWA",
     "description": "A Progressive Web App built with Next.js",
     "start_url": "/",
-    "display": "standalone",
+    "display": "fullscreen",
     "orientation": "portrait",
     "background_color": "#fcfcfc",
     "theme_color": "#000000",
