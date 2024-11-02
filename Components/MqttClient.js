@@ -77,7 +77,18 @@ const MqttClient = () => {
             });
         }
     }, []);
-
+    const enterFullscreen = () => {
+        const element = document.documentElement; // استخدام عنصر HTML الأساسي
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) { // Firefox
+            element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+            element.webkitRequestFullscreen();
+        } else if (element.msRequestFullscreen) { // IE/Edge
+            element.msRequestFullscreen();
+        }
+    };
     return (
         <div>
             <div className="content-body">
@@ -102,6 +113,8 @@ const MqttClient = () => {
                     disabled={!isConnected}
                 />
                 <button id="sendButton" onClick={sendMessage} disabled={!isConnected}>Send</button>
+                <button id="fullscreenButton" onClick={enterFullscreen}>Fullscreen</button> {/* زر ملء الشاشة */}
+
             </div>
         </div>
     );
