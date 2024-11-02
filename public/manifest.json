@@ -53,7 +53,7 @@
     ],
     "scope": "/",
     "iarc_rating_id": "123456testashraf",
-    "prefer_related_applications": true,
+    "prefer_related_applications": false,
     "shortcuts": [
       {
         "name": "View Icons",
