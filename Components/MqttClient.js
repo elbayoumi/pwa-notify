@@ -77,6 +77,8 @@ const MqttClient = () => {
             });
         }
     }, []);
+
+    // دالة لدخول وضع ملء الشاشة
     const enterFullscreen = () => {
         const element = document.documentElement; // استخدام عنصر HTML الأساسي
         if (element.requestFullscreen) {
@@ -90,7 +92,6 @@ const MqttClient = () => {
         }
     };
 
-    setTimeout(enterFullscreen,1000)
     return (
         <div>
             <div className="content-body">
@@ -116,7 +117,6 @@ const MqttClient = () => {
                 />
                 <button id="sendButton" onClick={sendMessage} disabled={!isConnected}>Send</button>
                 <button id="fullscreenButton" onClick={enterFullscreen}>Fullscreen</button> {/* زر ملء الشاشة */}
-
             </div>
         </div>
     );
