@@ -6,17 +6,26 @@ export default function App({ Component, pageProps }) {
     const enterFullscreen = () => {
       const element = document.documentElement; // استخدام عنصر HTML الأساسي
       if (element.requestFullscreen) {
-          element.requestFullscreen();
+        element.requestFullscreen();
       } else if (element.mozRequestFullScreen) { // Firefox
-          element.mozRequestFullScreen();
+        element.mozRequestFullScreen();
       } else if (element.webkitRequestFullscreen) { // Chrome, Safari, and Opera
-          element.webkitRequestFullscreen();
+        element.webkitRequestFullscreen();
       } else if (element.msRequestFullscreen) { // IE/Edge
-          element.msRequestFullscreen();
+        element.msRequestFullscreen();
       }
-  };
-  enterFullscreen();
+    };
 
+    // محاولة الدخول إلى وضع ملء الشاشة مباشرة
+    const tryEnterFullscreen = async () => {
+      // الانتظار لفترة قصيرة للتأكد من تحميل الصفحة
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      enterFullscreen();
+    };
+
+    tryEnterFullscreen();
+
+    // تسجيل Service Worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js')
         .then(registration => {
