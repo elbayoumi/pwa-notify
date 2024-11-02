@@ -7,6 +7,11 @@
     "orientation": "portrait",
     "background_color": "#fcfcfc",
     "theme_color": "#000000",
+    "scope_extensions": [
+    {"origin": "*.pwabuilder.com"},
+    {"origin": "docs.pwabuilder.co.uk"},
+    {"origin": "*.pwabuilder.co.uk"}
+  ],
     "launch_handler": {
         "web": {
             "default": "https://pwa-notify-three.vercel.app"
