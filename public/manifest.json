@@ -2,78 +2,97 @@
     "name": "My Next.js PWA",
     "short_name": "MyPWA",
     "description": "A Progressive Web App built with Next.js",
-    "start_url": "/",
+    "start_url": "https://pwa-notify-three.vercel.app",
     "display": "fullscreen",
     "orientation": "portrait",
     "background_color": "#fcfcfc",
     "theme_color": "#000000",
     "launch_handler": {
-    "web": {
-        "default": "https://pwa-notify-three.vercel.app"  
-    }
-},
+        "web": {
+            "default": "https://pwa-notify-three.vercel.app"
+        }
+    },
+    "related_applications": [
+        {
+            "platform": "windows",
+            "url": "https://www.example-app.com",
+            "id": "example.ExampleApp"
+        },
+        {
+            "platform": "play",
+            "url": "https://www.example-app-2.com"
+        }
+    ],
+    "protocol_handlers": [
+        {
+            "protocol": "web+music",
+            "url": "/play?track=%s"
+        }
+    ],
     "icons": [
         {
-          "src": "/icons/icon-192x192.png",
-          "sizes": "192x192",
-          "type": "image/png"
+            "src": "/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
         },
         {
-          "src": "/icons/icon-256x256.png",
-          "sizes": "256x256",
-          "type": "image/png"
+            "src": "/icons/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
         },
         {
-          "src": "/icons/icon-384x384.png",
-          "sizes": "384x384",
-          "type": "image/png"
+            "src": "/icons/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
         },
         {
-          "src": "/icons/icon-512x512.png",
-          "sizes": "512x512",
-          "type": "image/png"
+            "src": "/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
         },
         {
-          "src": "/icons/badge.png", 
-          "sizes": "192x192",
-          "type": "image/png"
+            "src": "/icons/badge.png",
+            "sizes": "192x192",
+            "type": "image/png"
         }
-      ],
+    ],
     "screenshots": [
-      {
-        "src": "/screenshots/screenshot1.png",
-        "sizes": "1280x720",
-        "type": "image/png"
-      },
-      {
-        "src": "/screenshots/screenshot2.png",
-        "sizes": "1280x720",
-        "type": "image/png"
-      }
+        {
+            "src": "/screenshots/screenshot1.png",
+            "sizes": "1280x720",
+            "type": "image/png"
+        },
+        {
+            "src": "/screenshots/screenshot2.png",
+            "sizes": "1280x720",
+            "type": "image/png"
+        }
     ],
     "id": "123456testashraf",
     "dir": "rtl",
     "lang": "ar",
     "display_override": [
-      "fullscreen",
-      "minimal-ui",
-      "standalone",
-      "window-controls-overlay",
-      "browser"
+        "fullscreen",
+        "minimal-ui",
+        "window-controls-overlay",
+        "browser"
     ],
-    "scope": "/",
-    "iarc_rating_id": "123456testashraf",
+    "scope": "https://pwa-notify-three.vercel.app/",
+    "iarc_rating_id": "e58c274a-81d2-5c3c-32cc-55b9de2a18",
     "prefer_related_applications": false,
     "shortcuts": [
-      {
-        "name": "View Icons",
-        "url": "/icons",
-        "description": "Open the icons page"
-      }
+        {
+            "name": "View Icons",
+            "url": "/icons",
+            "description": "Open the icons page"
+        }
     ],
     "categories": [
-      "games",
-      "government",
-      "social"
-    ]
-  }
+        "games",
+        "government",
+        "social"
+    ],
+    "edge_side_panel": {
+        "preferred_width": 400
+    }
+}
